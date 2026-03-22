@@ -85,7 +85,7 @@ jobs:
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
           fi
-
+                
       - name: Ensure Netlify site exists
         if: steps.changed.outputs.run == 'true'
         id: ensure_site
@@ -110,23 +110,23 @@ jobs:
             "https://api.netlify.com/api/v1/${NETLIFY_TEAM_SLUG}/sites/")
 
           NEW_SITE_ID=$(python - <<'PY' "$RESPONSE"
-import json, sys
-raw = json.loads(sys.argv[1])
-site_id = raw.get('id')
-if not site_id:
-    raise SystemExit(1)
-print(site_id)
-PY
-)
+          import json, sys
+          raw = json.loads(sys.argv[1])
+          site_id = raw.get('id')
+          if not site_id:
+              raise SystemExit(1)
+          print(site_id)
+          PY
+          )
 
           python - <<'PY' "$CONFIG" "$NEW_SITE_ID"
-import json, pathlib, sys
-path = pathlib.Path(sys.argv[1])
-site_id = sys.argv[2]
-data = json.loads(path.read_text(encoding='utf-8'))
-data['siteId'] = site_id
-path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
-PY
+          import json, pathlib, sys
+          path = pathlib.Path(sys.argv[1])
+          site_id = sys.argv[2]
+          data = json.loads(path.read_text(encoding='utf-8'))
+          data['siteId'] = site_id
+          path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
