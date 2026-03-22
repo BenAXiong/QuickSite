@@ -1,0 +1,30 @@
+name: Deploy third demo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sites/third-demo/**'
+      - '.github/workflows/deploy-third-demo.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy-third-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Deploy third demo to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          npx netlify-cli deploy \
+            --dir='sites/third-demo' \
+            --site='b2294aa0-6174-4669-981a-665e24b0c2ef' \
+            --prod
