@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Second Demo | QuickSite</title>
+  <style>
+    :root {
+      --bg1: #fff7ed;
+      --bg2: #ffedd5;
+      --card: rgba(255,255,255,0.78);
+      --text: #431407;
+      --muted: #9a3412;
+      --accent: #ea580c;
+      --accent-soft: #fdba74;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(251,146,60,0.22), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(234,88,12,0.16), transparent 30%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      padding: 24px;
+      display: grid;
+      place-items: center;
+    }
+    .wrap {
+      width: min(920px, 100%);
+      background: var(--card);
+      border: 1px solid rgba(234,88,12,0.15);
+      border-radius: 28px;
+      box-shadow: 0 18px 60px rgba(124,45,18,0.12);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+    .hero {
+      padding: 32px 28px 20px;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(234,88,12,0.12);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: .84rem;
+      margin-bottom: 14px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+    }
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 56ch;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 0 28px 22px;
+      align-items: center;
+    }
+    button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 8px 24px rgba(234,88,12,0.28);
+    }
+    .ghost {
+      background: rgba(255,255,255,0.72);
+      color: var(--text);
+      border: 1px solid rgba(154,52,18,0.12);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      padding: 0 28px 28px;
+    }
+    .stat {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(154,52,18,0.1);
+      border-radius: 20px;
+      padding: 18px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+    .mini {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .panel {
+      margin: 0 28px 28px;
+      padding: 20px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,247,237,0.88));
+      border: 1px solid rgba(154,52,18,0.1);
+    }
+    .bar {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(154,52,18,0.08);
+      overflow: hidden;
+      margin: 14px 0 10px;
+    }
+    .fill {
+      width: 24%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-soft), var(--accent));
+      transition: width .2s ease;
+    }
+    .hint {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Second QuickSite demo</div>
+      <h1>Another folder, another site.</h1>
+      <p class="lead">
+        This second demo proves the pattern: each site gets its own folder, its own index file,
+        and can be pointed to by a separate Netlify project using the folder as publish directory.
+      </p>
+    </section>
+
+    <section class="controls">
+      <button class="primary" id="advanceBtn">Advance demo</button>
+      <button class="ghost" id="resetBtn">Reset</button>
+      <span class="hint">Publish dir for this one: <strong>sites/second-demo</strong></span>
+    </section>
+
+    <section class="stats">
+      <article class="stat">
+        <strong id="countSites">2</strong>
+        <span class="mini">Sample sites now in repo</span>
+      </article>
+      <article class="stat">
+        <strong id="progressLabel">24%</strong>
+        <span class="mini">Automation confidence meter</span>
+      </article>
+      <article class="stat">
+        <strong>QuickSite</strong>
+        <span class="mini">Shared repo, independent folders</span>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div><strong>Status progress</strong></div>
+      <div class="bar"><div class="fill" id="fill"></div></div>
+      <div class="hint" id="statusText">Start with GitHub-connected sites. Then create one Netlify project per folder.</div>
+    </section>
+  </main>
+
+  <script>
+    const steps = [24, 42, 68, 86, 100];
+    const messages = [
+      'Start with GitHub-connected sites. Then create one Netlify project per folder.',
+      'Second site added. The repo structure is now clearly multi-site.',
+      'Point Netlify project A to sites/sample-html-chatgpt.',
+      'Point Netlify project B to sites/second-demo.',
+      'You now have a repeatable folder-based deployment workflow.'
+    ];
+    let idx = 0;
+    const fill = document.getElementById('fill');
+    const progressLabel = document.getElementById('progressLabel');
+    const statusText = document.getElementById('statusText');
+    const advanceBtn = document.getElementById('advanceBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function render() {
+      fill.style.width = steps[idx] + '%';
+      progressLabel.textContent = steps[idx] + '%';
+      statusText.textContent = messages[idx];
+    }
+
+    advanceBtn.addEventListener('click', () => {
+      idx = Math.min(idx + 1, steps.length - 1);
+      render();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      idx = 0;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
