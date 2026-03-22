@@ -1,0 +1,160 @@
+name: Provision and deploy Netlify sites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sites/**'
+      - '.github/workflows/provision-and-deploy-sites.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.discover.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Discover site configs
+        id: discover
+        shell: bash
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, pathlib
+          items = []
+          for path in sorted(pathlib.Path('sites').glob('*/site-config.json')):
+              data = json.loads(path.read_text(encoding='utf-8'))
+              items.append({
+                  'config': str(path),
+                  'dir': str(path.parent),
+                  'slug': data.get('slug', path.parent.name),
+                  'netlifyName': data.get('netlifyName', f"{path.parent.name}-quicksite"),
+                  'siteId': data.get('siteId', '')
+              })
+          print('matrix=' + json.dumps({'include': items}))
+          PY
+
+  provision-and-deploy:
+    needs: discover
+    runs-on: ubuntu-latest
+    if: ${{ fromJson(needs.discover.outputs.matrix).include[0] != null }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.discover.outputs.matrix) }}
+    env:
+      NETLIFY_TEAM_SLUG: benaxiong
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Decide whether this site changed
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR='${{ matrix.dir }}'
+          CFG='${{ matrix.config }}'
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          BEFORE='${{ github.event.before }}'
+          AFTER='${{ github.sha }}'
+
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if git diff --name-only "$BEFORE" "$AFTER" | grep -Eq "^${DIR}/|^${CFG}$"; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Ensure Netlify site exists
+        if: steps.changed.outputs.run == 'true'
+        id: ensure_site
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CONFIG='${{ matrix.config }}'
+          SITE_ID='${{ matrix.siteId }}'
+          SITE_NAME='${{ matrix.netlifyName }}'
+
+          if [ -n "$SITE_ID" ] && [ "$SITE_ID" != "null" ]; then
+            echo "site_id=$SITE_ID" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          RESPONSE=$(curl -sS -X POST \
+            -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"name\": \"$SITE_NAME\"}" \
+            "https://api.netlify.com/api/v1/${NETLIFY_TEAM_SLUG}/sites/")
+
+          NEW_SITE_ID=$(python - <<'PY' "$RESPONSE"
+import json, sys
+raw = json.loads(sys.argv[1])
+site_id = raw.get('id')
+if not site_id:
+    raise SystemExit(1)
+print(site_id)
+PY
+)
+
+          python - <<'PY' "$CONFIG" "$NEW_SITE_ID"
+import json, pathlib, sys
+path = pathlib.Path(sys.argv[1])
+site_id = sys.argv[2]
+data = json.loads(path.read_text(encoding='utf-8'))
+data['siteId'] = site_id
+path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$CONFIG"
+          git commit -m "Record Netlify site ID for $SITE_NAME" || true
+          git push
+
+          echo "site_id=$NEW_SITE_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve site ID
+        if: steps.changed.outputs.run == 'true'
+        id: resolve
+        shell: bash
+        run: |
+          SITE_ID='${{ steps.ensure_site.outputs.site_id }}'
+          if [ -z "$SITE_ID" ]; then
+            SITE_ID='${{ matrix.siteId }}'
+          fi
+          echo "site_id=$SITE_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy to Netlify
+        if: steps.changed.outputs.run == 'true'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx netlify-cli deploy \
+            --dir='${{ matrix.dir }}' \
+            --site='${{ steps.resolve.outputs.site_id }}' \
+            --prod
