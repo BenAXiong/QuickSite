@@ -15,7 +15,9 @@ The current QuickSite standard is:
 Before asking ChatGPT to work on this repo, these should already be set up:
 - GitHub connected to ChatGPT
 - Netlify connected to ChatGPT
-- repository write access granted to the ChatGPT GitHub integration
+- ChatGPT installed in GitHub
+- ChatGPT installed in Netlify
+- repository write access granted to the ChatGPT GitHub a Netlify integrations
 - GitHub repository secret `NETLIFY_AUTH_TOKEN` present
 
 ## What a fresh chat should be told
@@ -60,12 +62,3 @@ Once changes are pushed:
 - GitHub Actions should create the Netlify project if `siteId` is missing
 - GitHub Actions should write the returned site ID back into the repo
 - GitHub Actions should deploy the site
-
-## Important usage rule
-
-Future chats should not default back to the older manual matrix-maintenance mindset unless there is a specific reason.
-The autoprov model is now the preferred path.
-
-## Legacy note
-
-If older files or workflows still exist, treat them as transitional or fallback material unless the current docs explicitly say otherwise.
