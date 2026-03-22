@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Starter Landing | QuickSite</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --ink: #0f172a;
+      --muted: #475569;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --panel: #ffffff;
+      --line: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(180deg, #f8fafc, #eef4ff);
+      color: var(--ink);
+    }
+    .wrap {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .hero {
+      padding: 72px 0 36px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: .84rem;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
+      line-height: 1.03;
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+      max-width: 58ch;
+      margin: 0 0 22px;
+    }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: white; }
+    .secondary { background: white; color: var(--ink); border: 1px solid var(--line); }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 22px;
+      box-shadow: 0 18px 50px rgba(37,99,235,0.08);
+    }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .mini {
+      padding: 16px;
+      border-radius: 18px;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+    }
+    .mini strong { display: block; margin-bottom: 6px; }
+    .section {
+      padding: 8px 0 56px;
+    }
+    .section h2 {
+      font-size: 1.7rem;
+      margin: 0 0 18px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+    }
+    .card p { color: var(--muted); line-height: 1.65; margin: 0; }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Starter landing template</div>
+        <h1>A clean default for polished one-page sites.</h1>
+        <p class="lead">
+          Use this as the canonical landing-page starter for QuickSite projects that need a strong first impression,
+          clear hierarchy, and just enough interactivity to feel alive without getting messy.
+        </p>
+        <div class="actions">
+          <button class="btn primary" id="ctaBtn">Primary action</button>
+          <button class="btn secondary" id="demoBtn">Preview interaction</button>
+        </div>
+      </div>
+      <aside class="panel">
+        <strong>Starter profile</strong>
+        <p class="lead" style="font-size: .98rem; margin-top: 10px; margin-bottom: 12px;">
+          Best for public-facing showcase pages, event pages, product teasers, and one-page explainers.
+        </p>
+        <div class="mini-grid">
+          <div class="mini"><strong>Folder</strong><span>sites/starter-landing</span></div>
+          <div class="mini"><strong>Type</strong><span>Landing page</span></div>
+          <div class="mini"><strong>Style</strong><span>Clean + modern</span></div>
+          <div class="mini"><strong>Deploy</strong><span>GitHub Actions</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <h2>Why keep this starter?</h2>
+      <div class="cards">
+        <article class="card"><strong>Fast to adapt</strong><p>Swap the headline, subtext, and cards and you already have a usable public page.</p></article>
+        <article class="card"><strong>Responsive by default</strong><p>The layout stays readable on narrow screens without needing complex refactors.</p></article>
+        <article class="card"><strong>Low maintenance</strong><p>It stays in one file and avoids unnecessary dependencies.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const ctaBtn = document.getElementById('ctaBtn');
+    const demoBtn = document.getElementById('demoBtn');
+    ctaBtn.addEventListener('click', () => {
+      ctaBtn.textContent = 'Action captured';
+    });
+    demoBtn.addEventListener('click', () => {
+      document.documentElement.style.setProperty('--accent', '#7c3aed');
+      document.querySelector('.eyebrow').textContent = 'Interaction previewed';
+    });
+  </script>
+</body>
+</html>
