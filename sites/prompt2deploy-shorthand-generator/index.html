@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt2Deploy Shorthand Generator</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-2: #0f172a;
+      --panel: rgba(15, 23, 42, 0.92);
+      --panel-2: rgba(17, 24, 39, 0.9);
+      --line: rgba(148, 163, 184, 0.16);
+      --text: #e5eefc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22d3ee;
+      --good: #22c55e;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.08), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.10), transparent 32%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      color: var(--text);
+    }
+
+    body {
+      padding: 20px;
+    }
+
+    .app {
+      width: min(1240px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .sticky-bar {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      gap: 12px;
+      background: rgba(11, 18, 32, 0.78);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 8px 0 6px;
+      font-size: clamp(1.9rem, 4vw, 3.1rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 74ch;
+    }
+
+    .output-shell {
+      display: grid;
+      gap: 10px;
+    }
+
+    .output-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .output-box {
+      width: 100%;
+      min-height: 92px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(2, 8, 23, 0.76);
+      color: var(--text);
+      padding: 16px;
+      font: 600 0.98rem/1.6 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .panel p.helper {
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label,
+    .group-title {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      padding: 12px 14px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    .chip:focus-within {
+      border-color: rgba(56, 189, 248, 0.65);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .chip-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.78);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .chip:hover { transform: translateY(-1px); }
+
+    .chip input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .chip span {
+      padding: 10px 13px;
+      color: var(--text);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .chip input:checked + span {
+      background: linear-gradient(135deg, rgba(56,189,248,0.22), rgba(34,211,238,0.18));
+      border-radius: 999px;
+      color: #e0f7ff;
+    }
+
+    .chip input:checked + span::before {
+      content: "●";
+      color: var(--accent);
+      margin-right: 8px;
+      font-size: 0.72rem;
+      vertical-align: middle;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #072032;
+    }
+
+    .ghost {
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .success {
+      background: rgba(34, 197, 94, 0.16);
+      color: #d1fae5;
+      border: 1px solid rgba(34, 197, 94, 0.28);
+    }
+
+    .aside-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .summary-list,
+    .tips-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .summary-item,
+    .tip {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 12px 14px;
+      background: var(--panel-2);
+    }
+
+    .summary-item strong,
+    .tip strong {
+      display: block;
+      font-size: 0.94rem;
+      margin-bottom: 4px;
+    }
+
+    .summary-item span,
+    .tip span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    .inline-note {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .good {
+      color: #bbf7d0;
+    }
+
+    @media (max-width: 980px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 12px; }
+      .grid { grid-template-columns: 1fr; }
+      .sticky-bar { top: 8px; }
+      .panel { padding: 15px; }
+      .chip-group { gap: 6px; }
+      .chip span { padding: 9px 11px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="sticky-bar" aria-label="Generated shorthand output">
+      <div class="bar-top">
+        <div>
+          <div class="eyebrow">Prompt2Deploy · Shorthand generator</div>
+          <h1>Build a clean shorthand string in a few clicks.</h1>
+          <p class="subtitle">
+            This minimal tech workspace generates a <code> | </code>-separated Prompt2Deploy string live while you edit the controls.
+          </p>
+        </div>
+        <div class="actions">
+          <button class="primary" id="copyBtn" type="button">Copy string</button>
+          <button class="ghost" id="copyQuotedBtn" type="button">Copy quoted</button>
+          <button class="ghost" id="resetBtn" type="button">Reset</button>
+        </div>
+      </div>
+
+      <div class="output-shell">
+        <div class="output-meta">
+          <span id="statusText" class="good">Live output is on.</span>
+          <span class="inline-note">Slug is normalized automatically for deployment-safe output.</span>
+        </div>
+        <textarea id="outputBox" class="output-box" readonly aria-label="Generated shorthand string"></textarea>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <section class="panel">
+        <h2>Generator workspace</h2>
+        <p class="helper">
+          Keep it fast: choose the codes you want, add optional detail text, and copy the final shorthand string.
+        </p>
+
+        <div class="grid">
+          <div class="field">
+            <label for="modeInput">Type / mode</label>
+            <div class="chip-group" id="modeGroup">
+              <label class="chip"><input type="radio" name="mode" value="html" checked><span>html</span></label>
+              <label class="chip"><input type="radio" name="mode" value="file"><span>file</span></label>
+              <label class="chip"><input type="radio" name="mode" value="deploy"><span>deploy</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="slugInput">Slug</label>
+            <input id="slugInput" type="text" value="prompt2deploy-shorthand-generator" spellcheck="false" />
+          </div>
+
+          <div class="field">
+            <label for="themeGroup">Theme</label>
+            <div class="chip-group" id="themeGroup">
+              <label class="chip"><input type="radio" name="theme" value="tech" checked><span>tech</span></label>
+              <label class="chip"><input type="radio" name="theme" value="warm"><span>warm</span></label>
+              <label class="chip"><input type="radio" name="theme" value="noir"><span>noir</span></label>
+              <label class="chip"><input type="radio" name="theme" value="soft"><span>soft</span></label>
+              <label class="chip"><input type="radio" name="theme" value="vivid"><span>vivid</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="densityGroup">Density</label>
+            <div class="chip-group" id="densityGroup">
+              <label class="chip"><input type="radio" name="density" value="balanced" checked><span>balanced</span></label>
+              <label class="chip"><input type="radio" name="density" value="breathing"><span>breathing</span></label>
+              <label class="chip"><input type="radio" name="density" value="dense"><span>dense</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="complexityGroup">Complexity</label>
+            <div class="chip-group" id="complexityGroup">
+              <label class="chip"><input type="radio" name="complexity" value="min" checked><span>min</span></label>
+              <label class="chip"><input type="radio" name="complexity" value="mid"><span>mid</span></label>
+              <label class="chip"><input type="radio" name="complexity" value="max"><span>max</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="interactivityGroup">Interactivity</label>
+            <div class="chip-group" id="interactivityGroup">
+              <label class="chip"><input type="radio" name="interactivity" value="light"><span>light</span></label>
+              <label class="chip"><input type="radio" name="interactivity" value="rich" checked><span>rich</span></label>
+              <label class="chip"><input type="radio" name="interactivity" value="static"><span>static</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="intentGroup">Intent</label>
+            <div class="chip-group" id="intentGroup">
+              <label class="chip"><input type="radio" name="intent" value="functional" checked><span>functional</span></label>
+              <label class="chip"><input type="radio" name="intent" value="premium"><span>premium</span></label>
+              <label class="chip"><input type="radio" name="intent" value="narrative"><span>narrative</span></label>
+              <label class="chip"><input type="radio" name="intent" value="visual"><span>visual</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="layoutGroup">Layout</label>
+            <div class="chip-group" id="layoutGroup">
+              <label class="chip"><input type="radio" name="layout" value="workspace" checked><span>workspace</span></label>
+              <label class="chip"><input type="radio" name="layout" value="tool"><span>tool</span></label>
+              <label class="chip"><input type="radio" name="layout" value="landing"><span>landing</span></label>
+              <label class="chip"><input type="radio" name="layout" value="dashboard"><span>dashboard</span></label>
+              <label class="chip"><input type="radio" name="layout" value="single"><span>single</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="group-title">Behavior flags</span>
+            <div class="chip-group" id="flagsGroup">
+              <label class="chip"><input type="checkbox" name="flag" value="sticky" checked><span>sticky</span></label>
+              <label class="chip"><input type="checkbox" name="flag" value="live" checked><span>live</span></label>
+              <label class="chip"><input type="checkbox" name="flag" value="reset" checked><span>reset</span></label>
+              <label class="chip"><input type="checkbox" name="flag" value="chart"><span>chart</span></label>
+              <label class="chip"><input type="checkbox" name="flag" value="sliders"><span>sliders</span></label>
+              <label class="chip"><input type="checkbox" name="flag" value="tabs"><span>tabs</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:16px;">
+          <label for="detailsInput">Optional detail block</label>
+          <textarea id="detailsInput" placeholder="Goal:
+Generate a shorthand string efficiently with a few clicks."></textarea>
+        </div>
+      </section>
+
+      <aside class="aside-stack">
+        <section class="panel">
+          <h2>Live summary</h2>
+          <p class="helper">A quick read of the current shorthand choices.</p>
+          <ul class="summary-list" id="summaryList"></ul>
+        </section>
+
+        <section class="panel">
+          <h2>Usage tips</h2>
+          <p class="helper">Keep prompts short on the first line, then add detail below only when useful.</p>
+          <ul class="tips-list">
+            <li class="tip"><strong>Fast mode</strong><span>Use only the shorthand line when you want a quick first pass.</span></li>
+            <li class="tip"><strong>Detail mode</strong><span>Add a short goal block below if the behavior or content really matters.</span></li>
+            <li class="tip"><strong>Slug safety</strong><span>Uppercase, spaces, and underscores are normalized for a deploy-safe slug.</span></li>
+          </ul>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const els = {
+      output: document.getElementById('outputBox'),
+      slug: document.getElementById('slugInput'),
+      details: document.getElementById('detailsInput'),
+      status: document.getElementById('statusText'),
+      copyBtn: document.getElementById('copyBtn'),
+      copyQuotedBtn: document.getElementById('copyQuotedBtn'),
+      resetBtn: document.getElementById('resetBtn'),
+      summaryList: document.getElementById('summaryList')
+    };
+
+    const defaults = {
+      mode: 'html',
+      slug: 'prompt2deploy-shorthand-generator',
+      theme: 'tech',
+      density: 'balanced',
+      complexity: 'min',
+      interactivity: 'rich',
+      intent: 'functional',
+      layout: 'workspace',
+      flags: ['sticky', 'live', 'reset'],
+      details: 'Goal:\nGenerate a string of strings separated by " | " matching the shorthand notations in the Prompt2Deploy project efficiently with a few clicks.'
+    };
+
+    function slugify(value) {
+      return value
+        .trim()
+        .toLowerCase()
+        .replace(/[_\s]+/g, '-')
+        .replace(/[^a-z0-9-]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '') || 'my-site';
+    }
+
+    function getRadio(name) {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : '';
+    }
+
+    function getFlags() {
+      return [...document.querySelectorAll('input[name="flag"]:checked')].map(el => el.value);
+    }
+
+    function currentData() {
+      return {
+        mode: getRadio('mode'),
+        slug: slugify(els.slug.value),
+        theme: getRadio('theme'),
+        density: getRadio('density'),
+        complexity: getRadio('complexity'),
+        interactivity: getRadio('interactivity'),
+        intent: getRadio('intent'),
+        layout: getRadio('layout'),
+        flags: getFlags(),
+        details: els.details.value.trim()
+      };
+    }
+
+    function buildString(data) {
+      const parts = [
+        data.mode,
+        `s:${data.slug}`,
+        data.theme,
+        data.density,
+        data.complexity,
+        data.interactivity,
+        data.intent,
+        data.layout
+      ];
+
+      if (data.flags.length) parts.push(data.flags.join(' '));
+      return parts.join(' | ');
+    }
+
+    function renderSummary(data) {
+      const rows = [
+        ['Mode', data.mode],
+        ['Slug', data.slug],
+        ['Theme', data.theme],
+        ['Density', data.density],
+        ['Complexity', data.complexity],
+        ['Interactivity', data.interactivity],
+        ['Intent', data.intent],
+        ['Layout', data.layout],
+        ['Flags', data.flags.length ? data.flags.join(', ') : 'none']
+      ];
+
+      els.summaryList.innerHTML = rows.map(([label, value]) => (
+        `<li class="summary-item"><strong>${label}</strong><span>${value}</span></li>`
+      )).join('');
+    }
+
+    function updateOutput() {
+      const data = currentData();
+      const shorthand = buildString(data);
+      els.output.value = data.details ? `${shorthand}\n\n${data.details}` : shorthand;
+      els.status.textContent = data.flags.includes('live') ? 'Live output is on.' : 'Output updated.';
+      renderSummary(data);
+    }
+
+    async function copy(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        els.status.textContent = 'Copied to clipboard.';
+      } catch {
+        els.status.textContent = 'Copy failed. You can still select the text manually.';
+      }
+    }
+
+    function setRadio(name, value) {
+      const target = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if (target) target.checked = true;
+    }
+
+    function resetAll() {
+      els.slug.value = defaults.slug;
+      els.details.value = defaults.details;
+      setRadio('mode', defaults.mode);
+      setRadio('theme', defaults.theme);
+      setRadio('density', defaults.density);
+      setRadio('complexity', defaults.complexity);
+      setRadio('interactivity', defaults.interactivity);
+      setRadio('intent', defaults.intent);
+      setRadio('layout', defaults.layout);
+      document.querySelectorAll('input[name="flag"]').forEach(input => {
+        input.checked = defaults.flags.includes(input.value);
+      });
+      updateOutput();
+      els.status.textContent = 'Reset to defaults.';
+    }
+
+    document.querySelectorAll('input, textarea').forEach(el => {
+      el.addEventListener('input', updateOutput);
+      el.addEventListener('change', updateOutput);
+    });
+
+    els.copyBtn.addEventListener('click', () => copy(els.output.value));
+    els.copyQuotedBtn.addEventListener('click', () => copy(JSON.stringify(els.output.value)));
+    els.resetBtn.addEventListener('click', resetAll);
+
+    resetAll();
+  </script>
+</body>
+</html>
