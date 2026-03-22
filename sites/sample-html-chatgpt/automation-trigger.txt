@@ -1,0 +1,1 @@
+Automation trigger commit to test GitHub Actions -> Netlify deployment.
