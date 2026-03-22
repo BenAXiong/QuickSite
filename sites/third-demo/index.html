@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Third Demo | QuickSite</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(12, 18, 38, 0.72);
+      --line: rgba(255,255,255,0.12);
+      --text: #eef2ff;
+      --muted: #b6c2ff;
+      --accent: #8b5cf6;
+      --accent2: #22d3ee;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(139,92,246,0.25), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(34,211,238,0.18), transparent 30%),
+        linear-gradient(160deg, #0b1020, #111933 55%, #0f172a);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .shell {
+      width: min(920px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+      backdrop-filter: blur(12px);
+    }
+    .hero {
+      padding: 34px 28px 20px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(139,92,246,0.16);
+      color: #ddd6fe;
+      font-weight: 700;
+      font-size: .84rem;
+      margin-bottom: 14px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.7rem);
+      line-height: 1.04;
+    }
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      max-width: 58ch;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+    .controls, .cards { padding: 0 28px 28px; }
+    .controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: white; }
+    .ghost { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--line); }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      border-radius: 20px;
+      padding: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+    }
+    .card strong { display: block; margin-bottom: 6px; font-size: 1.15rem; }
+    .small { color: var(--muted); font-size: .95rem; }
+    .meter-wrap { padding: 0 28px 30px; }
+    .meter {
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      margin: 10px 0 12px;
+    }
+    .fill {
+      width: 33%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .2s ease;
+    }
+    .status { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="tag">Third automation proof</div>
+      <h1>A third site from the same repo.</h1>
+      <p class="lead">This page exists to prove the automation scales beyond two demos. Same repository, new folder, new Netlify site, dedicated deploy workflow.</p>
+    </section>
+    <section class="controls">
+      <button class="primary" id="advanceBtn">Advance proof</button>
+      <button class="ghost" id="resetBtn">Reset</button>
+      <span class="small">Publish target: <strong>sites/third-demo</strong></span>
+    </section>
+    <section class="cards">
+      <article class="card"><strong>Repo</strong><span class="small">BenAXiong/QuickSite</span></article>
+      <article class="card"><strong>Folder</strong><span class="small">sites/third-demo</span></article>
+      <article class="card"><strong>Netlify site</strong><span class="small">third-demo-quicksite</span></article>
+    </section>
+    <section class="meter-wrap">
+      <div><strong>Confidence meter</strong></div>
+      <div class="meter"><div class="fill" id="fill"></div></div>
+      <div class="status" id="status">Third site added. Push-based deployment should handle it too.</div>
+    </section>
+  </main>
+  <script>
+    const stages = [33, 58, 82, 100];
+    const messages = [
+      'Third site added. Push-based deployment should handle it too.',
+      'Workflow is isolated, so this test should not break the earlier demos.',
+      'If the action passes, the multi-site automation is clearly repeatable.',
+      'Third proof complete.'
+    ];
+    let i = 0;
+    const fill = document.getElementById('fill');
+    const status = document.getElementById('status');
+    document.getElementById('advanceBtn').addEventListener('click', () => {
+      i = Math.min(i + 1, stages.length - 1);
+      fill.style.width = stages[i] + '%';
+      status.textContent = messages[i];
+    });
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      i = 0;
+      fill.style.width = stages[i] + '%';
+      status.textContent = messages[i];
+    });
+  </script>
+</body>
+</html>
