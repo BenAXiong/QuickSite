@@ -24,7 +24,13 @@ jobs:
           - name: third-demo-quicksite
             dir: sites/third-demo
             site_id: b2294aa0-6174-4669-981a-665e24b0c2ef
-
+          - name: starter-landing-quicksite
+            dir: sites/starter-landing
+            site_id: 1d26c1fa-5be4-490b-a18f-38caa12edfeb
+          - name: site-tool-quicksite
+            dir: sites/starter-tool
+            site_id: 3dd414da-d81a-4e34-a814-36fc0c988397
+  
     steps:
       - name: Checkout
         uses: actions/checkout@v4
