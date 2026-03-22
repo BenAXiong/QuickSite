@@ -21,6 +21,9 @@ jobs:
           - name: second-demo-quicksite
             dir: sites/second-demo
             site_id: 0fb53aae-68b3-41a6-a4c4-4281505450bf
+          - name: third-demo-quicksite
+            dir: sites/third-demo
+            site_id: b2294aa0-6174-4669-981a-665e24b0c2ef
 
     steps:
       - name: Checkout
