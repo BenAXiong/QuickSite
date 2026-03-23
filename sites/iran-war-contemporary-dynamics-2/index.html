@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iran War: Contemporary Dynamics</title>
+  <meta name="description" content="A mobile-first noir infographic snapshot of the current Iran war system: direct strikes, proxies, chokepoints, nuclear risk, and escalation paths." />
+  <style>
+    :root{
+      --bg:#080909;
+      --bg-2:#0f1112;
+      --panel:#141719;
+      --panel-2:#1a1e21;
+      --line:#2a3136;
+      --muted:#9aa3aa;
+      --text:#f5f7f8;
+      --soft:#d8dde0;
+      --accent:#e8b66c;
+      --accent-2:#8db0c8;
+      --danger:#d76b62;
+      --good:#7fb091;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:22px;
+      --radius-sm:14px;
+      --maxw:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(232,182,108,.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(141,176,200,.08), transparent 24%),
+        linear-gradient(180deg, #060707 0%, #0a0b0d 100%);
+      color:var(--text);
+      line-height:1.55;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .shell{max-width:var(--maxw);margin:0 auto;padding:20px 16px 80px}
+    .eyebrow{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+      font-size:.78rem;color:var(--soft);background:rgba(255,255,255,.02)
+    }
+    .eyebrow .dot{width:8px;height:8px;border-radius:99px;background:var(--danger);box-shadow:0 0 0 6px rgba(215,107,98,.12)}
+    .hero{
+      position:relative;
+      padding:22px 0 18px;
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch;
+    }
+    .hero-card,.panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero-main{padding:24px}
+    h1{
+      font-size:clamp(2rem, 5vw, 4.3rem);
+      line-height:.95;margin:14px 0 14px;letter-spacing:-.04em;
+    }
+    .lede{
+      font-size:clamp(1rem,2vw,1.16rem);
+      color:var(--soft);max-width:60ch;margin:0 0 20px;
+    }
+    .chip-row,.mini-chips{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line);background:rgba(255,255,255,.03);
+      color:var(--soft);padding:10px 12px;border-radius:999px;font-size:.86rem
+    }
+    .chip strong{color:var(--text);font-weight:700}
+    .hero-side{
+      display:grid;gap:14px;padding:16px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      align-content:start;
+    }
+    .metric{
+      background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;
+      min-height:120px;
+      display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .metric .k{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;line-height:1;letter-spacing:-.04em}
+    .metric .l{font-size:.88rem;color:var(--muted)}
+    .metric .s{font-size:.78rem;color:var(--soft)}
+    .sticky-rail{
+      position:sticky;top:0;z-index:20;backdrop-filter:blur(16px);
+      padding:10px 0 12px;margin-top:10px
+    }
+    .rail-inner{
+      display:flex;gap:10px;overflow:auto;padding:8px 0 2px;-ms-overflow-style:none;scrollbar-width:none
+    }
+    .rail-inner::-webkit-scrollbar{display:none}
+    .nav-pill{
+      white-space:nowrap;text-decoration:none;
+      color:var(--soft);border:1px solid var(--line);background:rgba(8,9,9,.84);
+      padding:11px 14px;border-radius:999px;font-size:.9rem
+    }
+    .nav-pill:hover,.nav-pill:focus{outline:none;border-color:#445059;color:var(--text)}
+    section{padding:20px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:0 0 14px}
+    .section-head h2{
+      margin:0;font-size:clamp(1.35rem, 3vw, 2.1rem);letter-spacing:-.03em
+    }
+    .section-head p{margin:0;color:var(--muted);max-width:52ch}
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .pad{padding:18px}
+    .kicker{
+      text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--accent);
+      font-weight:800
+    }
+    .big-copy{font-size:1.12rem;color:var(--soft)}
+    .system-map{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px
+    }
+    .node{
+      background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;position:relative
+    }
+    .node::after{
+      content:"";position:absolute;inset:auto 18px 0 18px;height:1px;background:linear-gradient(90deg,transparent, rgba(255,255,255,.15), transparent)
+    }
+    .node h3,.card h3{margin:0 0 6px;font-size:1.03rem}
+    .node p,.card p,.source-list li{margin:0;color:var(--muted);font-size:.94rem}
+    .timeline{
+      display:grid;gap:14px
+    }
+    .t-item{
+      display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:start;
+      background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px
+    }
+    .t-date{
+      font-size:.82rem;font-weight:800;letter-spacing:.09em;color:var(--accent);
+      padding-top:3px
+    }
+    .t-body h3{margin:0 0 6px;font-size:1.02rem}
+    .t-body p{margin:0;color:var(--muted)}
+    .filter-row{
+      display:flex;gap:10px;overflow:auto;padding-bottom:2px
+    }
+    .filter-row::-webkit-scrollbar{display:none}
+    .filter-btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--soft);
+      padding:10px 14px;border-radius:999px;font-weight:700;font-size:.9rem;
+      cursor:pointer;white-space:nowrap
+    }
+    .filter-btn.active{background:rgba(232,182,108,.14);border-color:rgba(232,182,108,.4);color:#fff}
+    .card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px}
+    .card{
+      background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px;
+      min-height:220px;display:flex;flex-direction:column;gap:12px
+    }
+    .card[hidden]{display:none !important}
+    .tag-row{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{
+      padding:7px 10px;border-radius:999px;border:1px solid var(--line);
+      color:var(--soft);font-size:.78rem;background:rgba(255,255,255,.03)
+    }
+    .tag.warn{border-color:rgba(215,107,98,.36);background:rgba(215,107,98,.08)}
+    .tag.cool{border-color:rgba(141,176,200,.36);background:rgba(141,176,200,.08)}
+    .tag.good{border-color:rgba(127,176,145,.34);background:rgba(127,176,145,.08)}
+    .card ul{
+      margin:0;padding-left:18px;color:var(--soft)
+    }
+    .card li{margin:0 0 8px}
+    .chart-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
+    .chart-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px}
+    .chart-card h3{margin:0 0 12px}
+    .bars{display:grid;gap:14px}
+    .bar-row{display:grid;grid-template-columns:120px 1fr 62px;gap:10px;align-items:center}
+    .bar-row .label{font-size:.9rem;color:var(--soft)}
+    .bar{
+      height:12px;border-radius:999px;background:#23292d;position:relative;overflow:hidden
+    }
+    .bar > span{
+      position:absolute;inset:0 auto 0 0;border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--danger))
+    }
+    .bar.cool > span{background:linear-gradient(90deg,var(--accent-2),#b0c9d9)}
+    .bar.good > span{background:linear-gradient(90deg,var(--good),#9fc7ae)}
+    .bar-row .value{text-align:right;font-variant-numeric:tabular-nums;color:var(--text);font-size:.88rem}
+    .ladder{
+      display:grid;gap:10px
+    }
+    .step{
+      border:1px solid var(--line);border-radius:18px;padding:14px 14px 14px 16px;
+      background:linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start
+    }
+    .step .n{
+      width:28px;height:28px;border-radius:999px;display:grid;place-items:center;
+      font-weight:800;font-size:.82rem;background:#20262a;color:var(--soft)
+    }
+    .step strong{display:block;margin-bottom:4px}
+    .scenario-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .scenario{
+      background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:12px
+    }
+    .score-strip{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:8px
+    }
+    .score{
+      border:1px solid var(--line);border-radius:16px;padding:12px;background:rgba(255,255,255,.02)
+    }
+    .score .k{font-size:.78rem;color:var(--muted);margin-bottom:4px}
+    .score .v{font-size:.94rem;font-weight:800}
+    .source-list{
+      margin:0;padding-left:18px;display:grid;gap:10px
+    }
+    .foot{
+      margin-top:28px;padding:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem
+    }
+    .subtle{color:var(--muted)}
+    .divider{
+      height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      margin:6px 0 2px
+    }
+    .note{
+      border:1px dashed #41505b;background:rgba(141,176,200,.08);
+      color:var(--soft);border-radius:18px;padding:14px 16px
+    }
+    details{
+      background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px
+    }
+    summary{cursor:pointer;font-weight:700}
+    .legend{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:10px
+    }
+    .legend .item{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:.86rem}
+    .swatch{width:12px;height:12px;border-radius:999px;background:var(--accent)}
+    .swatch.cool{background:var(--accent-2)}
+    .swatch.good{background:var(--good)}
+    @media (max-width: 1020px){
+      .hero-grid,.chart-wrap,.scenario-grid,.grid-4,.grid-3,.grid-2,.card-grid{grid-template-columns:1fr}
+      .hero-side{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width: 720px){
+      .shell{padding:16px 12px 72px}
+      .hero-main{padding:18px}
+      .hero-side{padding:12px;gap:12px}
+      .metric{min-height:108px;padding:14px}
+      .system-map{grid-template-columns:1fr}
+      .t-item{grid-template-columns:1fr;gap:8px}
+      .bar-row{grid-template-columns:90px 1fr 54px}
+      .section-head{flex-direction:column;align-items:start}
+      .sticky-rail{top:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero" id="top">
+      <div class="hero-grid">
+        <article class="hero-card hero-main">
+          <span class="eyebrow"><span class="dot"></span> Snapshot explainer · not live intelligence</span>
+          <h1>Iran War:<br/>Contemporary Dynamics</h1>
+          <p class="lede">A one-page systems view of the current conflict: what changed since 2024, why the war now feels structurally more dangerous, where leverage sits, and what pathways matter most next.</p>
+          <div class="chip-row">
+            <span class="chip"><strong>Updated</strong> 23 Mar 2026</span>
+            <span class="chip"><strong>Mode</strong> mobile-first infographic</span>
+            <span class="chip"><strong>Focus</strong> military, energy, nuclear, proxy spillover</span>
+          </div>
+        </article>
+        <aside class="hero-side hero-card">
+          <div class="metric">
+            <div class="l">Current phase</div>
+            <div class="k">Week 4</div>
+            <div class="s">Reuters says the renewed war began on 28 Feb 2026.</div>
+          </div>
+          <div class="metric">
+            <div class="l">Hormuz oil flow</div>
+            <div class="k">20.9m b/d</div>
+            <div class="s">About 20% of global petroleum liquids consumption.</div>
+          </div>
+          <div class="metric">
+            <div class="l">Hormuz LNG share</div>
+            <div class="k">~20%</div>
+            <div class="s">About one-fifth of global LNG trade moved through the strait in 2024.</div>
+          </div>
+          <div class="metric">
+            <div class="l">Nuclear benchmark</div>
+            <div class="k">400kg @ 60%</div>
+            <div class="s">IAEA referenced this stockpile during the June 2025 crisis.</div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <div class="sticky-rail">
+      <nav class="rail-inner" aria-label="Section navigation">
+        <a class="nav-pill" href="#overview">Overview</a>
+        <a class="nav-pill" href="#timeline">Timeline</a>
+        <a class="nav-pill" href="#theaters">Theaters</a>
+        <a class="nav-pill" href="#charts">Charts</a>
+        <a class="nav-pill" href="#scenarios">Scenarios</a>
+        <a class="nav-pill" href="#sources">Sources</a>
+      </nav>
+    </div>
+
+    <section id="overview">
+      <div class="section-head">
+        <h2>The picture in one screen</h2>
+        <p>The risk is not just battlefield intensity. It is the collision of four systems: direct state fire, proxy adaptation, maritime chokepoints, and a nuclear file still clouded by damaged facilities and incomplete verification.</p>
+      </div>
+      <div class="panel pad">
+        <div class="system-map">
+          <div class="node">
+            <div class="kicker">01 · direct fire</div>
+            <h3>Iran and Israel are no longer hiding fully behind deniability.</h3>
+            <p>The line from covert shadow conflict to overt state-on-state missile exchange was crossed in 2024 and deepened in the 12-day war of June 2025. The 2026 round pushes that logic further.</p>
+          </div>
+          <div class="node">
+            <div class="kicker">02 · proxy adaptation</div>
+            <h3>Iran’s network is damaged, not gone.</h3>
+            <p>Hezbollah has taken severe losses and its Syria supply route was cut after Assad’s fall, but Iran still retains partner forces, missile capacity, and the ability to create multi-front pressure.</p>
+          </div>
+          <div class="node">
+            <div class="kicker">03 · energy coercion</div>
+            <h3>Hormuz turns a regional war into a global market shock.</h3>
+            <p>Even partial disruption hits oil, LNG, shipping insurance, freight patterns, and Asian importers. That is why coercion in the Gulf has outsized strategic weight.</p>
+          </div>
+          <div class="node">
+            <div class="kicker">04 · nuclear opacity</div>
+            <h3>Bomb damage does not equal political clarity.</h3>
+            <p>IAEA reporting before and during the 2025 war highlighted large 60%-enriched stockpiles and stressed that inspectors need access to re-establish facts on the ground after strikes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-head">
+        <h2>How the system changed</h2>
+        <p>The contemporary war environment only makes sense if you read it as a sequence of escalations, shocks, and degraded deterrence.</p>
+      </div>
+      <div class="timeline">
+        <article class="t-item">
+          <div class="t-date">APR 2024</div>
+          <div class="t-body">
+            <h3>Iran launches its first direct attack on Israel.</h3>
+            <p>Reuters reported more than 300 drones and missiles in the April 13–14 attack, a turning point because Tehran moved from mainly proxy warfare to openly acknowledged retaliation.</p>
+          </div>
+        </article>
+        <article class="t-item">
+          <div class="t-date">DEC 2024</div>
+          <div class="t-body">
+            <h3>Assad falls, and the Syria corridor fractures.</h3>
+            <p>CFR and Reuters both highlighted that the collapse of Assad’s regime removed a critical logistical node for Iran and cut Hezbollah’s overland supply route through Syria.</p>
+          </div>
+        </article>
+        <article class="t-item">
+          <div class="t-date">JUN 2025</div>
+          <div class="t-body">
+            <h3>The 12-day Iran–Israel war resets the baseline.</h3>
+            <p>Israel struck Iranian nuclear and missile targets on June 13; the U.S. later attacked key nuclear sites; a U.S.-backed ceasefire followed on June 24. The old “managed shadow war” baseline was gone.</p>
+          </div>
+        </article>
+        <article class="t-item">
+          <div class="t-date">FEB–MAR 2026</div>
+          <div class="t-body">
+            <h3>Renewed war spreads leverage to infrastructure and shipping.</h3>
+            <p>Reuters now describes direct strikes on Iranian missile infrastructure, continued Iranian missile fire, renewed Hezbollah escalation, and threats centered on Hormuz plus Gulf energy and water assets.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="theaters">
+      <div class="section-head">
+        <h2>Where pressure sits now</h2>
+        <p>Tap a lens to narrow the map. The key point: the war is not one front. It is an interacting stack of military, political, maritime, and verification crises.</p>
+      </div>
+      <div class="filter-row" role="tablist" aria-label="Theater filters">
+        <button class="filter-btn active" data-filter="all" type="button">All lenses</button>
+        <button class="filter-btn" data-filter="homeland" type="button">Iran homeland</button>
+        <button class="filter-btn" data-filter="levant" type="button">Levant</button>
+        <button class="filter-btn" data-filter="gulf" type="button">Gulf & shipping</button>
+        <button class="filter-btn" data-filter="nuclear" type="button">Nuclear file</button>
+      </div>
+
+      <div class="card-grid">
+        <article class="card" data-tags="all homeland">
+          <div class="tag-row">
+            <span class="tag warn">direct strike zone</span>
+            <span class="tag">missile infrastructure</span>
+            <span class="tag cool">retaliatory doctrine</span>
+          </div>
+          <h3>Iran homeland</h3>
+          <p>Iran is absorbing direct attacks on missile and nuclear-linked infrastructure while still trying to preserve retaliatory credibility. That creates strong incentives for symbolic and disruptive counterstrikes, even when its broader regional position is weaker than before.</p>
+          <ul>
+            <li>Leadership must show resilience without inviting total collapse.</li>
+            <li>Infrastructure targeting raises pressure to widen the target set.</li>
+            <li>Domestic damage increases regime sensitivity to prestige and deterrence.</li>
+          </ul>
+        </article>
+
+        <article class="card" data-tags="all levant">
+          <div class="tag-row">
+            <span class="tag warn">high civilian exposure</span>
+            <span class="tag">air defense stress</span>
+            <span class="tag cool">counterforce logic</span>
+          </div>
+          <h3>Israel front</h3>
+          <p>Iranian fire still aims to prove that interception is not perfect and that strategic disruption remains possible. Even limited missile penetration has outsized psychological and political effect because the war now plays out in dense urban areas and around high-value military nodes.</p>
+          <ul>
+            <li>Air defense success is real, but not absolute.</li>
+            <li>Strikes on population centers create escalation pressure.</li>
+            <li>Israel is trying to degrade launch capacity faster than Iran can signal staying power.</li>
+          </ul>
+        </article>
+
+        <article class="card" data-tags="all levant">
+          <div class="tag-row">
+            <span class="tag warn">severe attrition</span>
+            <span class="tag">IRGC rebuild help</span>
+            <span class="tag">fragmented command</span>
+          </div>
+          <h3>Lebanon / Hezbollah</h3>
+          <p>Hezbollah is no longer the intact high-end deterrent it once was, but Reuters reports an IRGC-led restructuring after the 2024 war and a shift toward smaller decentralized units. That means lower elegance, not zero danger.</p>
+          <ul>
+            <li>Leadership and logistics took heavy hits.</li>
+            <li>Decentralized cells can still sustain attritional pressure.</li>
+            <li>Lebanon’s civilian infrastructure is increasingly exposed.</li>
+          </ul>
+        </article>
+
+        <article class="card" data-tags="all levant">
+          <div class="tag-row">
+            <span class="tag">post-Assad gap</span>
+            <span class="tag cool">corridor degraded</span>
+            <span class="tag">militia residue</span>
+          </div>
+          <h3>Iraq / Syria corridor</h3>
+          <p>The fall of Assad changed the geometry of Iranian power projection. The overland route into Lebanon became far less reliable, yet Iraq-based armed actors and residual networks still matter for launch depth, logistics, and coercive signaling.</p>
+          <ul>
+            <li>Syria is no longer a secure Iranian rear area.</li>
+            <li>That weakens Hezbollah resupply and IRGC mobility.</li>
+            <li>But it does not erase Iraq-based militant leverage.</li>
+          </ul>
+        </article>
+
+        <article class="card" data-tags="all gulf">
+          <div class="tag-row">
+            <span class="tag warn">global market lever</span>
+            <span class="tag">shipping insurance</span>
+            <span class="tag cool">Asian exposure</span>
+          </div>
+          <h3>Gulf / Hormuz</h3>
+          <p>This is Iran’s most globally scalable lever. Closing or selectively coercing traffic through Hormuz can impose costs far beyond the battlefield, especially on Asian energy importers and LNG buyers.</p>
+          <ul>
+            <li>Roughly one-fifth of global oil and LNG flows remain exposed.</li>
+            <li>Alternative pipeline capacity only offsets part of the shock.</li>
+            <li>Threats to desalination and energy assets widen the regional risk map.</li>
+          </ul>
+        </article>
+
+        <article class="card" data-tags="all nuclear">
+          <div class="tag-row">
+            <span class="tag warn">verification gap</span>
+            <span class="tag">damaged sites</span>
+            <span class="tag cool">diplomacy hinge</span>
+          </div>
+          <h3>Nuclear file</h3>
+          <p>The hardest analytical question is not simply “how much was destroyed?” but “what can be verified now?” IAEA statements in 2025 stressed both the size of Iran’s 60%-enriched stockpile and the necessity of renewed inspector access after strikes.</p>
+          <ul>
+            <li>Physical damage can slow programs without settling intent.</li>
+            <li>Material accounting becomes more important after war.</li>
+            <li>Diplomacy without verification will look thin; verification without diplomacy will struggle to stick.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="charts">
+      <div class="section-head">
+        <h2>Two charts that actually matter</h2>
+        <p>The point of these visuals is not decoration. They show why Gulf coercion and verification risk dominate the strategic math.</p>
+      </div>
+      <div class="chart-wrap">
+        <article class="chart-card">
+          <h3>Hormuz exposure, in plain numbers</h3>
+          <div class="bars">
+            <div class="bar-row">
+              <div class="label">Oil flow</div>
+              <div class="bar"><span style="width:20%"></span></div>
+              <div class="value">20%</div>
+            </div>
+            <div class="bar-row">
+              <div class="label">LNG trade</div>
+              <div class="bar cool"><span style="width:20%"></span></div>
+              <div class="value">20%</div>
+            </div>
+            <div class="bar-row">
+              <div class="label">Asia share of Hormuz LNG</div>
+              <div class="bar good"><span style="width:83%"></span></div>
+              <div class="value">83%</div>
+            </div>
+            <div class="bar-row">
+              <div class="label">Bypass capacity*</div>
+              <div class="bar"><span style="width:22%"></span></div>
+              <div class="value">4.7 / 20.9</div>
+            </div>
+          </div>
+          <div class="legend">
+            <span class="item"><span class="swatch"></span> petroleum exposure</span>
+            <span class="item"><span class="swatch cool"></span> gas exposure</span>
+            <span class="item"><span class="swatch good"></span> Asia demand concentration</span>
+          </div>
+          <p class="subtle" style="margin-top:12px">*Approximate bypass capacity shown against 1H25 Hormuz oil flow. It illustrates why alternative routes soften rather than solve a hard disruption.</p>
+        </article>
+
+        <article class="chart-card">
+          <h3>Escalation ladder</h3>
+          <div class="ladder">
+            <div class="step">
+              <div class="n">1</div>
+              <div><strong>Counterforce exchanges</strong><span class="subtle">Strikes focus on missile sites, launchers, military infrastructure, and command networks.</span></div>
+            </div>
+            <div class="step">
+              <div class="n">2</div>
+              <div><strong>Proxy and border front widening</strong><span class="subtle">Hezbollah, Iraq-based actors, and maritime harassment raise the number of live fronts.</span></div>
+            </div>
+            <div class="step">
+              <div class="n">3</div>
+              <div><strong>Economic coercion</strong><span class="subtle">Hormuz disruption, tanker risk, LNG delays, and strikes on regional utilities expand costs beyond the core belligerents.</span></div>
+            </div>
+            <div class="step">
+              <div class="n">4</div>
+              <div><strong>Strategic infrastructure targeting</strong><span class="subtle">Power, water, refining, desalination, and civilian-adjacent systems become bargaining chips.</span></div>
+            </div>
+            <div class="step">
+              <div class="n">5</div>
+              <div><strong>Nuclear crisis politics</strong><span class="subtle">The conflict turns from “what was hit?” to “what remains, where, and who can verify it?”</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="panel pad" style="margin-top:16px">
+        <div class="section-head" style="margin-bottom:8px">
+          <h2 style="font-size:1.18rem">Bottom line</h2>
+          <p>The contemporary war is not mainly about territory. It is about deterrence credibility, survivable strike capacity, chokepoint leverage, and the political meaning of an only partly visible nuclear file.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="scenarios">
+      <div class="section-head">
+        <h2>Three plausible next paths</h2>
+        <p>Not probabilities. Think of these as strategic shapes. The first is the easiest to imagine, the second is the most economically violent, and the third is the hardest to construct but the only one that meaningfully cools the nuclear dimension.</p>
+      </div>
+      <div class="scenario-grid">
+        <article class="scenario">
+          <div class="kicker">Path A</div>
+          <h3>Rolling limited war</h3>
+          <p>Direct strikes continue, but below the threshold of decisive state collapse or full Hormuz closure. The conflict stays expensive, politically combustible, and regionally contagious without fully exploding.</p>
+          <div class="score-strip">
+            <div class="score"><div class="k">Military</div><div class="v">Sustained</div></div>
+            <div class="score"><div class="k">Energy</div><div class="v">Volatile</div></div>
+            <div class="score"><div class="k">Diplomacy</div><div class="v">Thin</div></div>
+          </div>
+        </article>
+        <article class="scenario">
+          <div class="kicker">Path B</div>
+          <h3>Hormuz hard shock</h3>
+          <p>Shipping disruption becomes deeper and more durable, whether via declared closure, selective interdiction, or risk so high that insurers and shipowners behave as if the route is partly shut.</p>
+          <div class="score-strip">
+            <div class="score"><div class="k">Military</div><div class="v">Expanded</div></div>
+            <div class="score"><div class="k">Energy</div><div class="v">Severe</div></div>
+            <div class="score"><div class="k">Global spillover</div><div class="v">High</div></div>
+          </div>
+        </article>
+        <article class="scenario">
+          <div class="kicker">Path C</div>
+          <h3>Ceasefire plus verification bargain</h3>
+          <p>Fighting slows because outside powers decide the energy and nuclear downside is worse than the political cost of compromise. Any durable version of this path needs restored access and accounting, not just a pause in fire.</p>
+          <div class="score-strip">
+            <div class="score"><div class="k">Military</div><div class="v">Reduced</div></div>
+            <div class="score"><div class="k">Energy</div><div class="v">Relieved</div></div>
+            <div class="score"><div class="k">Verification</div><div class="v">Essential</div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="section-head">
+        <h2>Source frame</h2>
+        <p>This page is a dated analytical snapshot built from a mix of current reporting and primary institutional material. Numbers and battlefield details can move fast.</p>
+      </div>
+
+      <div class="note">
+        Refresh trigger: if you see a new ceasefire, a verified change in Hormuz traffic conditions, or renewed IAEA access announcements, this page should be refreshed.
+      </div>
+
+      <div class="grid grid-2" style="margin-top:16px">
+        <details open>
+          <summary>Core reporting used</summary>
+          <ol class="source-list" style="margin-top:12px">
+            <li>Reuters on the March 2026 war phase, including direct strikes, Hormuz threats, Gulf infrastructure risk, and Lebanon escalation.</li>
+            <li>Reuters on the July 2025 disclosure that Iranian strikes hit some Israeli military sites during the June 2025 war.</li>
+            <li>Reuters on Hezbollah’s December 2024 loss of its Syria supply route after Assad’s fall.</li>
+          </ol>
+        </details>
+        <details open>
+          <summary>Primary / reference material used</summary>
+          <ol class="source-list" style="margin-top:12px">
+            <li>IAEA March 2025 statement on Iran’s 275 kg stockpile enriched to 60% U‑235.</li>
+            <li>IAEA June 2025 statements referencing roughly 400 kg enriched to 60% and the need for inspectors to re-establish facts after strikes.</li>
+            <li>U.S. EIA on Hormuz oil flow, LNG exposure, Asia destination share, and limited bypass capacity.</li>
+            <li>CFR explainers on Iran’s regional armed network, the IRGC, and post-Assad Syria’s effect on Iran and Hezbollah.</li>
+          </ol>
+        </details>
+      </div>
+
+      <footer class="foot">
+        Built as a static single-file explainer for mobile reading. Visual emphasis is intentional; claims are framed as a dated snapshot, not a live operational dashboard.
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    const buttons = [...document.querySelectorAll('.filter-btn')];
+    const cards = [...document.querySelectorAll('.card')];
+
+    function applyFilter(filter){
+      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.filter === filter));
+      cards.forEach(card => {
+        const tags = (card.dataset.tags || '').split(/\s+/);
+        const show = filter === 'all' || tags.includes(filter);
+        card.hidden = !show;
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+    });
+
+    applyFilter('all');
+  </script>
+</body>
+</html>
