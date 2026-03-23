@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Keelung Islet | History, Sights & Visitor Guide</title>
+  <meta name="description" content="An English guide to Keelung Islet: history, geology, top sights, access, seasonality, and nearby places to pair with a half-day trip." />
+  <style>
+    :root{
+      --bg:#08111f;
+      --bg2:#0f1d35;
+      --card:rgba(11,23,43,.72);
+      --card-strong:rgba(13,27,51,.9);
+      --line:rgba(255,255,255,.11);
+      --text:#eef6ff;
+      --muted:#a9bbd7;
+      --accent:#67d7ff;
+      --accent2:#ffd166;
+      --accent3:#7df0b5;
+      --danger:#ff7d7d;
+      --shadow:0 16px 40px rgba(0,0,0,.28);
+      --radius:22px;
+      --radius-sm:16px;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(103,215,255,.16), transparent 28%),
+        radial-gradient(circle at 100% 10%, rgba(255,209,102,.16), transparent 25%),
+        linear-gradient(180deg, #07101d 0%, #0a1730 36%, #08111f 100%);
+      min-height:100vh;
+      line-height:1.5;
+      overflow-x:hidden;
+    }
+    img{max-width:100%; display:block}
+    a{color:inherit}
+    button,select{font:inherit}
+    .page{width:min(var(--max), calc(100% - 28px)); margin:0 auto}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(6,12,24,.68);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      width:min(var(--max), calc(100% - 20px));
+      margin:0 auto;
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      padding:10px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; min-width:0;
+    }
+    .brand-badge{
+      width:38px;height:38px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),#4ea7ff 55%, var(--accent2));
+      box-shadow:0 10px 26px rgba(103,215,255,.25);
+      position:relative; flex:0 0 auto;
+    }
+    .brand-badge:before{
+      content:"";
+      position:absolute; inset:9px 8px 12px 8px;
+      border-radius:999px 999px 30% 30%;
+      background:rgba(8,17,31,.88);
+      transform:rotate(-8deg);
+    }
+    .brand-copy{min-width:0}
+    .eyebrow{font-size:.73rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent2)}
+    .brand-title{font-size:.98rem; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .jump{
+      display:flex; gap:8px; overflow:auto; padding-bottom:2px; scrollbar-width:none;
+    }
+    .jump::-webkit-scrollbar{display:none}
+    .chip{
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      border-radius:999px; padding:10px 14px;
+      text-decoration:none; white-space:nowrap;
+      font-size:.92rem;
+    }
+    .hero{
+      padding:28px 0 18px;
+      display:grid; gap:18px;
+    }
+    .hero-card{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+        linear-gradient(135deg, rgba(103,215,255,.08), rgba(255,209,102,.05) 55%, rgba(125,240,181,.08));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-card:after{
+      content:"";
+      position:absolute; right:-50px; top:-60px; width:180px; height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,209,102,.32), rgba(255,209,102,0));
+      pointer-events:none;
+    }
+    h1{
+      font-size:clamp(2rem, 8vw, 4.2rem);
+      line-height:.96;
+      margin:.1em 0 .25em;
+      letter-spacing:-.04em;
+      max-width:10ch;
+    }
+    .subtitle{
+      font-size:1.03rem; color:#d8e6fb; max-width:62ch;
+    }
+    .hero-facts{
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:18px;
+    }
+    .fact{
+      padding:14px; border-radius:18px; border:1px solid rgba(255,255,255,.1);
+      background:rgba(5,11,22,.36)
+    }
+    .fact strong{display:block; font-size:1rem}
+    .fact span{display:block; color:var(--muted); font-size:.9rem; margin-top:2px}
+    .fact em{font-style:normal; color:var(--accent3)}
+    .micro-note{
+      margin-top:14px; color:var(--muted); font-size:.88rem;
+    }
+
+    .controls{
+      display:grid; gap:14px;
+      margin:8px 0 20px;
+    }
+    .control-card, .section-card{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:var(--card);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .control-head{
+      display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:14px;
+    }
+    .control-head h2, .section-card h2{
+      margin:0;
+      font-size:1.2rem;
+      letter-spacing:-.02em;
+    }
+    .muted{color:var(--muted)}
+    .segmented{
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .segmented button{
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      border-radius:999px;
+      padding:12px 14px;
+      min-height:44px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .segmented button[aria-pressed="true"]{
+      background:linear-gradient(135deg, rgba(103,215,255,.18), rgba(255,209,102,.18));
+      border-color:rgba(103,215,255,.45);
+      box-shadow:0 8px 24px rgba(103,215,255,.14);
+    }
+    .planner{
+      display:grid; gap:14px;
+    }
+    .planner-grid, .two-col, .three-col{
+      display:grid; gap:14px;
+    }
+    .planner-box{
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .planner-box h3{margin:0 0 8px; font-size:1rem}
+    .value{
+      font-size:1.7rem; font-weight:800; letter-spacing:-.03em;
+    }
+    .value small{font-size:.72em; font-weight:700; color:var(--accent2)}
+    .bars{
+      display:grid; gap:10px; margin-top:8px;
+    }
+    .bar-row{display:grid; gap:6px}
+    .bar-meta{display:flex; justify-content:space-between; gap:12px; color:#dbe9ff; font-size:.92rem}
+    .track{
+      height:12px; border-radius:999px; background:rgba(255,255,255,.07); overflow:hidden;
+    }
+    .fill{
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),#4fb8ff 38%,var(--accent2));
+      width:0;
+      transition:width .32s ease;
+    }
+    .timeline-chart{
+      display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px;
+      margin-top:10px;
+    }
+    .month{
+      padding:10px 6px 12px;
+      border-radius:16px;
+      text-align:center;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.87rem;
+    }
+    .month strong{display:block; font-size:1rem; margin-bottom:2px}
+    .month.good{background:rgba(125,240,181,.12); border-color:rgba(125,240,181,.28)}
+    .month.ok{background:rgba(255,209,102,.11); border-color:rgba(255,209,102,.24)}
+    .month.off{opacity:.6}
+    .section{
+      margin:18px 0 0;
+    }
+    .section-card h2{margin-bottom:6px}
+    .section-copy{color:var(--muted); margin-bottom:16px}
+    .gallery-grid{
+      display:grid; gap:14px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+    .shot{
+      position:relative;
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.1);
+      min-height:180px;
+      background:#0f1a2f;
+      cursor:pointer;
+    }
+    .shot img{
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .45s ease, filter .45s ease;
+      filter:saturate(1.05) contrast(1.03);
+    }
+    .shot:hover img{transform:scale(1.04)}
+    .shot figcaption{
+      position:absolute; left:0; right:0; bottom:0;
+      padding:14px;
+      background:linear-gradient(180deg, rgba(5,10,20,0), rgba(5,10,20,.85));
+    }
+    .shot-title{font-weight:800; font-size:.98rem}
+    .shot-sub{font-size:.84rem; color:#d8e5f8}
+    .cards{
+      display:grid; gap:14px;
+    }
+    .sight-card, .mini-card{
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .sight-card h3, .mini-card h3{
+      margin:0 0 8px;
+      font-size:1.05rem;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(103,215,255,.12);
+      color:#dff5ff;
+      font-size:.82rem;
+      margin-bottom:10px;
+      border:1px solid rgba(103,215,255,.22);
+    }
+    .timeline{
+      display:grid; gap:12px;
+      position:relative;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute; left:8px; top:6px; bottom:6px;
+      width:2px; background:linear-gradient(180deg,var(--accent), rgba(255,255,255,.08));
+    }
+    .timeline-item{
+      position:relative;
+      padding:0 0 0 28px;
+    }
+    .timeline-item:before{
+      content:"";
+      position:absolute; left:0; top:.35em;
+      width:18px;height:18px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 0 0 5px rgba(103,215,255,.12);
+    }
+    .timeline-item strong{display:block; font-size:1rem}
+    .compare{
+      display:grid; gap:12px;
+    }
+    .compare-card{
+      padding:16px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+    }
+    .compare-card .row{
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-top:10px; color:var(--muted);
+    }
+    .mapish{
+      position:relative;
+      border-radius:24px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.09);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(103,215,255,.14), transparent 22%),
+        linear-gradient(180deg, rgba(21,49,89,.92), rgba(9,20,39,.98));
+      min-height:280px;
+      padding:18px;
+    }
+    .route-svg{
+      width:100%; height:240px; display:block;
+    }
+    .legend{
+      display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;
+    }
+    .legend span{
+      border-radius:999px; padding:8px 10px; font-size:.84rem;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
+    }
+    .faq{
+      display:grid; gap:10px;
+    }
+    details{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      padding:16px 18px;
+      font-weight:700;
+    }
+    summary::-webkit-details-marker{display:none}
+    details > div{
+      padding:0 18px 16px;
+      color:var(--muted);
+    }
+    .sources{
+      display:grid; gap:10px;
+      margin-top:14px;
+    }
+    .source-list{
+      display:grid; gap:8px;
+      padding:0; margin:0;
+      list-style:none;
+    }
+    .source-list a{
+      display:block; padding:12px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      text-decoration:none;
+      color:#dcf0ff;
+      word-break:break-word;
+    }
+    .foot{
+      padding:24px 0 40px; color:var(--muted); font-size:.9rem;
+    }
+    .modal{
+      position:fixed; inset:0; z-index:100;
+      background:rgba(4,8,16,.82);
+      backdrop-filter:blur(10px);
+      display:none; align-items:center; justify-content:center;
+      padding:16px;
+    }
+    .modal.open{display:flex}
+    .modal-card{
+      width:min(980px,100%);
+      background:#08111f;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 22px 60px rgba(0,0,0,.45);
+    }
+    .modal-img{
+      width:100%; max-height:70vh; object-fit:cover;
+      background:#000;
+    }
+    .modal-copy{
+      padding:16px;
+      display:flex; justify-content:space-between; gap:14px; align-items:flex-start;
+    }
+    .icon-btn{
+      appearance:none; border:none; cursor:pointer;
+      width:42px;height:42px;border-radius:12px;
+      background:rgba(255,255,255,.08); color:var(--text);
+      flex:0 0 auto;
+    }
+    .tag-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .tag{
+      padding:7px 10px; border-radius:999px; font-size:.82rem;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+      color:#d9e8fb;
+    }
+    @media (min-width: 760px){
+      .hero{grid-template-columns:1.25fr .92fr; align-items:stretch}
+      .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .planner-grid{grid-template-columns:1.05fr .95fr}
+      .two-col{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .three-col{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .compare{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .section{margin-top:22px}
+      .hero-card{padding:28px}
+    }
+    @media (max-width: 759px){
+      .topbar-inner{display:block}
+      .jump{margin-top:10px}
+      .hero-facts{grid-template-columns:1fr 1fr}
+      .gallery-grid{grid-template-columns:1fr 1fr}
+      .timeline-chart{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .month:nth-child(n+5){grid-column:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <div class="eyebrow">Tiny island / half-day escape</div>
+          <div class="brand-title">Keelung Islet · 基隆嶼</div>
+        </div>
+      </div>
+      <nav class="jump" aria-label="Jump links">
+        <a class="chip" href="#overview">Overview</a>
+        <a class="chip" href="#gallery">Gallery</a>
+        <a class="chip" href="#history">History</a>
+        <a class="chip" href="#visit">Visit</a>
+        <a class="chip" href="#pairings">Nearby</a>
+        <a class="chip" href="#sources">Sources</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="page">
+    <section class="hero" id="overview">
+      <article class="hero-card">
+        <div class="eyebrow">English visitor guide</div>
+        <h1>Keelung Islet</h1>
+        <p class="subtitle">
+          A compact, visual guide to the volcanic island off Keelung: what it is, why it matters, what to see, and how to plan a smart half-day visit without getting lost in scattered tourism pages.
+        </p>
+        <div class="hero-facts">
+          <div class="fact"><strong>Volcanic landmark</strong><span>Small offshore islet northeast of Keelung, famous for cliffs, sea erosion, and spring lilies.</span></div>
+          <div class="fact"><strong>Typical access season</strong><span><em>Usually</em> April to October, with seasonal closures during rough winter conditions.</span></div>
+          <div class="fact"><strong>Classic departure point</strong><span>Bisha / Badouzi area for ferries and packaged island tours.</span></div>
+          <div class="fact"><strong>Best fit</strong><span>Half-day trip for geology, coast views, lighthouse photos, and North Coast add-ons.</span></div>
+        </div>
+        <p class="micro-note">Note: operators, sea conditions, and island quotas can change. This page highlights the stable essentials and flags what to verify before you go.</p>
+      </article>
+
+      <aside class="control-card">
+        <div class="control-head">
+          <div>
+            <h2>Quick trip planner</h2>
+            <div class="muted">Tap a season and trip style to see what kind of visit fits best.</div>
+          </div>
+        </div>
+
+        <div class="planner">
+          <div class="planner-box">
+            <h3>Choose season</h3>
+            <div class="segmented" id="seasonControls" aria-label="Season controls">
+              <button type="button" data-season="spring" aria-pressed="true">Spring</button>
+              <button type="button" data-season="summer" aria-pressed="false">Summer</button>
+              <button type="button" data-season="autumn" aria-pressed="false">Autumn</button>
+              <button type="button" data-season="winter" aria-pressed="false">Winter</button>
+            </div>
+          </div>
+
+          <div class="planner-box">
+            <h3>Choose visit mode</h3>
+            <div class="segmented" id="modeControls" aria-label="Mode controls">
+              <button type="button" data-mode="landing" aria-pressed="true">Landing only</button>
+              <button type="button" data-mode="hike" aria-pressed="false">Landing + lighthouse hike</button>
+              <button type="button" data-mode="full" aria-pressed="false">Landing + hike + circumnavigation</button>
+            </div>
+          </div>
+
+          <div class="planner-grid">
+            <div class="planner-box">
+              <h3>Best use case</h3>
+              <div class="value" id="plannerTitle">Flowers + cool air</div>
+              <p class="muted" id="plannerSummary">Spring is the prettiest balance of blooms, clear shapes, and manageable heat. It is the easiest season to recommend to most visitors.</p>
+              <div class="tag-row" id="plannerTags"></div>
+            </div>
+
+            <div class="planner-box">
+              <h3>Trip intensity</h3>
+              <div class="bars">
+                <div class="bar-row">
+                  <div class="bar-meta"><span>Time commitment</span><span id="timeLabel">2.0–2.5h</span></div>
+                  <div class="track"><div class="fill" id="timeBar"></div></div>
+                </div>
+                <div class="bar-row">
+                  <div class="bar-meta"><span>Effort</span><span id="effortLabel">Easy</span></div>
+                  <div class="track"><div class="fill" id="effortBar"></div></div>
+                </div>
+                <div class="bar-row">
+                  <div class="bar-meta"><span>Photo value</span><span id="photoLabel">High</span></div>
+                  <div class="track"><div class="fill" id="photoBar"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="planner-box">
+            <h3>Seasonality at a glance</h3>
+            <div class="muted">This is a visitor-planning guide, not a legal opening notice. Always confirm the operator schedule.</div>
+            <div class="timeline-chart" aria-label="season timeline">
+              <div class="month off"><strong>Jan</strong>Off</div>
+              <div class="month off"><strong>Feb</strong>Off</div>
+              <div class="month off"><strong>Mar</strong>Mostly off</div>
+              <div class="month good"><strong>Apr</strong>Open</div>
+              <div class="month good"><strong>May</strong>Open</div>
+              <div class="month good"><strong>Jun</strong>Open</div>
+              <div class="month ok"><strong>Jul</strong>Hot / busy</div>
+              <div class="month ok"><strong>Aug</strong>Hot / busy</div>
+              <div class="month good"><strong>Sep</strong>Open</div>
+              <div class="month good"><strong>Oct</strong>Open</div>
+              <div class="month off"><strong>Nov</strong>Closed</div>
+              <div class="month off"><strong>Dec</strong>Closed</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="gallery">
+      <article class="section-card">
+        <h2>Why it stands out</h2>
+        <p class="section-copy">Keelung Islet is tiny, but it reads big in the landscape. From the Keelung coast it looks like a single dramatic shape; on the island itself, the interest is in texture: cliffs, old military traces, the striped lighthouse, and changing seasonal plants.</p>
+        <div class="gallery-grid">
+          <figure class="shot" data-title="Whole-island silhouette" data-caption="The classic profile seen from the North Coast and from Keelung.">
+            <img loading="lazy" alt="Keelung Islet seen from a distance" src="https://commons.wikimedia.org/wiki/Special:FilePath/2019_Keelung_Islet.jpg?width=1200">
+            <figcaption>
+              <div class="shot-title">Whole-island silhouette</div>
+              <div class="shot-sub">The shape that made it one of Keelung’s best-known coastal landmarks.</div>
+            </figcaption>
+          </figure>
+          <figure class="shot" data-title="Lighthouse close-up" data-caption="The black-and-white lighthouse is one of the island’s most recognizable sightlines.">
+            <img loading="lazy" alt="Keelung Islet lighthouse" src="https://commons.wikimedia.org/wiki/Special:FilePath/2019_Keelung_Islet_Lighthouse.jpg?width=1200">
+            <figcaption>
+              <div class="shot-title">Lighthouse close-up</div>
+              <div class="shot-sub">The island’s most photogenic built feature.</div>
+            </figcaption>
+          </figure>
+          <figure class="shot" data-title="Older panoramic view" data-caption="A wider angle showing how abruptly the island rises out of the sea.">
+            <img loading="lazy" alt="Panoramic view of Keelung Islet" src="https://commons.wikimedia.org/wiki/Special:FilePath/%E5%9F%BA%E9%9A%86%E5%B6%BC_Keelung_Island_-_panoramio.jpg?width=1200">
+            <figcaption>
+              <div class="shot-title">Panoramic view</div>
+              <div class="shot-sub">Good for understanding the steep volcanic form.</div>
+            </figcaption>
+          </figure>
+          <figure class="shot" data-title="Distant coast view" data-caption="How the islet appears as a visual anchor from inland and coastal viewpoints.">
+            <img loading="lazy" alt="Keelung Islet seen from farther away" src="https://commons.wikimedia.org/wiki/Special:FilePath/%E5%BE%9E%E5%BE%A9%E8%88%88%E5%B1%B1%E9%81%A0%E7%9C%BA%E5%9F%BA%E9%9A%86%E5%B6%BC.jpg?width=1200">
+            <figcaption>
+              <div class="shot-title">Distant coast view</div>
+              <div class="shot-sub">Useful when planning where to pair the island with mainland viewpoints.</div>
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="two-col">
+        <article class="section-card">
+          <h2>Top sights on the island</h2>
+          <p class="section-copy">You are not coming here for a huge itinerary. You are coming for a concentrated set of coastal highlights.</p>
+          <div class="cards">
+            <div class="sight-card">
+              <div class="pill">01 · Signature stop</div>
+              <h3>Keelung Islet Lighthouse</h3>
+              <p>The black-and-white lighthouse is the island’s visual icon. Even people who do not care about lighthouse history usually make it their main photo target.</p>
+            </div>
+            <div class="sight-card">
+              <div class="pill">02 · Natural texture</div>
+              <h3>Volcanic cliffs and sea erosion</h3>
+              <p>The island’s appeal is geological as much as scenic: rugged rock faces, exposed coastal structure, and a steep silhouette rising sharply from the sea.</p>
+            </div>
+            <div class="sight-card">
+              <div class="pill">03 · Seasonal detail</div>
+              <h3>Wild lilies and native plants</h3>
+              <p>Spring brings one of the most distinctive visual moments, when lilies and other native plants soften the otherwise hard volcanic profile.</p>
+            </div>
+            <div class="sight-card">
+              <div class="pill">04 · Leftover layers</div>
+              <h3>Military traces and lookout feel</h3>
+              <p>The island carries remnants of its former strategic use, which adds a harsher, more layered feel to what would otherwise be a pure nature stop.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="section-card">
+          <h2>What makes it different from a generic island stop</h2>
+          <p class="section-copy">This place works because it is compact and legible. You can understand its shape, history, and visitor logic quickly.</p>
+          <div class="three-col">
+            <div class="mini-card">
+              <h3>Small but dramatic</h3>
+              <p class="muted">The island is tiny, so the experience is concentrated rather than sprawling.</p>
+            </div>
+            <div class="mini-card">
+              <h3>Near the city</h3>
+              <p class="muted">You get an offshore-island feel without committing to a full out-of-town expedition.</p>
+            </div>
+            <div class="mini-card">
+              <h3>Pairs well</h3>
+              <p class="muted">It works especially well with nearby Keelung coast sights on the same day.</p>
+            </div>
+          </div>
+
+          <div class="mapish" style="margin-top:14px">
+            <svg class="route-svg" viewBox="0 0 700 240" role="img" aria-label="Simplified route diagram from Taipei to Keelung Islet">
+              <defs>
+                <linearGradient id="sea" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#67d7ff"/>
+                  <stop offset="100%" stop-color="#ffd166"/>
+                </linearGradient>
+              </defs>
+              <path d="M40 165 C120 170, 180 140, 235 128 S350 120, 430 142 S560 170, 660 98" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="18" stroke-linecap="round"/>
+              <path d="M40 165 C120 170, 180 140, 235 128 S350 120, 430 142 S560 170, 660 98" fill="none" stroke="url(#sea)" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 12"/>
+              <circle cx="70" cy="160" r="24" fill="#0f203c" stroke="rgba(255,255,255,.15)"/>
+              <circle cx="250" cy="128" r="24" fill="#0f203c" stroke="rgba(255,255,255,.15)"/>
+              <circle cx="452" cy="145" r="24" fill="#0f203c" stroke="rgba(255,255,255,.15)"/>
+              <circle cx="640" cy="100" r="26" fill="#0f203c" stroke="rgba(255,255,255,.15)"/>
+              <text x="70" y="165" fill="white" text-anchor="middle" font-size="14" font-weight="700">TP</text>
+              <text x="250" y="133" fill="white" text-anchor="middle" font-size="14" font-weight="700">KL</text>
+              <text x="452" y="150" fill="white" text-anchor="middle" font-size="12" font-weight="700">BISHA</text>
+              <text x="640" y="105" fill="white" text-anchor="middle" font-size="12" font-weight="700">ISLET</text>
+              <text x="34" y="205" fill="#cde8ff" font-size="14">Taipei</text>
+              <text x="213" y="95" fill="#cde8ff" font-size="14">Keelung city</text>
+              <text x="405" y="190" fill="#cde8ff" font-size="14">Bisha / Badouzi harbor area</text>
+              <text x="568" y="74" fill="#cde8ff" font-size="14">~20 min boat ride</text>
+            </svg>
+            <div class="legend">
+              <span>City access is easy</span>
+              <span>Boat leg is short</span>
+              <span>Good as a half-day plan</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="history">
+      <div class="two-col">
+        <article class="section-card">
+          <h2>History in one clean timeline</h2>
+          <p class="section-copy">The short version: geology made it dramatic, shipping made it important, the military made it controlled, and tourism turned it into a seasonal public destination.</p>
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>Long before tourism</strong>
+              <div class="muted">Keelung Islet formed as part of a volcanic system and later became a striking maritime landmark off the Keelung coast.</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Sacred / storied place in local imagination</strong>
+              <div class="muted">Historical accounts and later summaries describe the island as a place with older local stories and a special, somewhat forbidding aura.</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Japanese and postwar military use</strong>
+              <div class="muted">The island later served strategic and military functions, and traces of that period still shape its atmosphere today.</div>
+            </div>
+            <div class="timeline-item">
+              <strong>1980 lighthouse milestone</strong>
+              <div class="muted">The current lighthouse became one of the island’s defining modern symbols and strengthened its role as a visual marker offshore.</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Tourism opening, then long repair closure</strong>
+              <div class="muted">The island opened to tourism in the early 2000s, then suffered years of storm-related closure and repairs before reopening in 2019.</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Today</strong>
+              <div class="muted">It is now a controlled seasonal destination with visitor caps, guided or packaged boat access, and a strong conservation logic.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="section-card" id="visit">
+          <h2>Tourism essentials</h2>
+          <p class="section-copy">This is the practical layer most people actually need before deciding whether the island is worth the hassle.</p>
+          <div class="compare">
+            <div class="compare-card">
+              <h3>Access</h3>
+              <p>Most visitors reach the island through boat operators in the Bisha / Badouzi area rather than treating it like an open walk-in attraction.</p>
+              <div class="row"><span>Typical mainland base</span><strong>Bisha Fishing Harbor</strong></div>
+            </div>
+            <div class="compare-card">
+              <h3>Opening logic</h3>
+              <p>The island is commonly open during the calmer part of the year and closed through the rough northeast monsoon season.</p>
+              <div class="row"><span>Typical public season</span><strong>Apr–Oct</strong></div>
+            </div>
+            <div class="compare-card">
+              <h3>Capacity</h3>
+              <p>Visitor numbers are controlled. Popular dates can fill up, especially when weather is good and flower season overlaps with weekends.</p>
+              <div class="row"><span>Reported daily cap</span><strong>1,200</strong></div>
+            </div>
+          </div>
+
+          <div class="planner-box" style="margin-top:14px">
+            <h3>Common trip styles</h3>
+            <div class="bars">
+              <div class="bar-row">
+                <div class="bar-meta"><span>Landing only</span><span>short / easy</span></div>
+                <div class="track"><div class="fill" style="width:34%"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-meta"><span>Landing + lighthouse hike</span><span>balanced</span></div>
+                <div class="track"><div class="fill" style="width:63%"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-meta"><span>Landing + hike + circumnavigation</span><span>fuller half-day</span></div>
+                <div class="track"><div class="fill" style="width:82%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq" style="margin-top:14px">
+            <details open>
+              <summary>Is it worth it if I only have half a day?</summary>
+              <div>Yes. That is actually the strongest use case. It is much better as a compact coastal add-on than as the single centerpiece of a whole weekend.</div>
+            </details>
+            <details>
+              <summary>Can I just show up and buy a ferry on the spot?</summary>
+              <div>Do not count on it. In practice, it is safer to treat Keelung Islet as an operator-booked experience with weather and capacity constraints.</div>
+            </details>
+            <details>
+              <summary>Who should skip the lighthouse hike?</summary>
+              <div>Anyone sensitive to heat, steep steps, exposed sun, or rougher footing. The island is small, but the terrain is still open and physically honest.</div>
+            </details>
+            <details>
+              <summary>What should I verify right before going?</summary>
+              <div>Operator departure, sea conditions, actual opening date, visitor quota, and whether your chosen route includes landing only, hiking, or a full circumnavigation loop.</div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pairings">
+      <article class="section-card">
+        <h2>Best nearby pairings</h2>
+        <p class="section-copy">Keelung Islet becomes a stronger outing when paired with one or two mainland stops. These are the most natural combinations.</p>
+        <div class="three-col">
+          <div class="mini-card">
+            <h3>Bisha Fishing Harbor</h3>
+            <p class="muted">Practical launch point, seafood stop, and a straightforward pre/post-boat anchor.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Heping Island Park</h3>
+            <p class="muted">Great contrast with the islet: accessible mainland coast, sea-eroded rock views, and easy infrastructure.</p>
+          </div>
+          <div class="mini-card">
+            <h3>National Museum of Marine Science & Technology</h3>
+            <p class="muted">A smart indoor pairing if weather turns or if you want to add a marine-education layer to the day.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="sources">
+      <article class="section-card">
+        <h2>Source trail</h2>
+        <p class="section-copy">The page is written for quick understanding, but the links below are the places to verify current details and dig deeper.</p>
+        <div class="sources">
+          <ul class="source-list">
+            <li><a href="https://eng.taiwan.net.tw/m1.aspx?id=3508&sNo=0002105" target="_blank" rel="noreferrer">Taiwan Tourism Administration — official Keelung Islet attraction page</a></li>
+            <li><a href="https://eng.taiwan.net.tw/m1.aspx?id=c100_383&sNo=0000212" target="_blank" rel="noreferrer">Taiwan Tourism Administration — Bisha Fishing Harbor page</a></li>
+            <li><a href="https://eng.taiwan.net.tw/m1.aspx?id=R80&sNo=0002105" target="_blank" rel="noreferrer">Taiwan Tourism Administration — Heping Island Park page</a></li>
+            <li><a href="https://eng.taiwan.net.tw/m1.aspx?id=A12-00123&sNo=0002105" target="_blank" rel="noreferrer">Taiwan Tourism Administration — National Museum of Marine Science & Technology</a></li>
+            <li><a href="https://www.taiwannews.com.tw/news/6074259" target="_blank" rel="noreferrer">Taiwan News — 2025 reopening and visitor-cap report</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Keelung_Islet" target="_blank" rel="noreferrer">Wikipedia — concise background summary and dimensional data</a></li>
+            <li><a href="https://taiwantravelblog.com/keelung-islet/" target="_blank" rel="noreferrer">Taiwan Travel Blog — useful practical context and route variants</a></li>
+            <li><a href="https://commons.wikimedia.org/wiki/Category:Keelung_Islet" target="_blank" rel="noreferrer">Wikimedia Commons — open images used in the gallery</a></li>
+          </ul>
+          <p class="muted">Practical reading rule: trust the official tourism pages for attraction basics, then use recent operator or news sources to confirm seasonal openings and quotas.</p>
+        </div>
+      </article>
+    </section>
+
+    <footer class="foot">
+      Built as a mobile-first, public-facing explainer with gallery, sticky jump navigation, seasonal planner, and nearby-pairing suggestions.
+    </footer>
+  </main>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-card">
+      <img class="modal-img" id="modalImg" alt="" />
+      <div class="modal-copy">
+        <div>
+          <div class="shot-title" id="modalTitle">Image</div>
+          <div class="muted" id="modalCaption">Caption</div>
+        </div>
+        <button class="icon-btn" id="modalClose" type="button" aria-label="Close image">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      season: 'spring',
+      mode: 'landing'
+    };
+
+    const seasonData = {
+      spring: {
+        title: 'Flowers + cool air',
+        summary: 'Spring is the prettiest balance of blooms, visibility, and manageable effort. It is the strongest default pick for first-time visitors.',
+        tags: ['Best all-round choice', 'Lilies and coastal greenery', 'Usually easier light for photos']
+      },
+      summer: {
+        title: 'Big color + harsher heat',
+        summary: 'Summer gives bright sea color and a lively atmosphere, but heat, glare, and crowds make the exposed hike feel more demanding.',
+        tags: ['Strong blue-water look', 'Hot and exposed', 'Book earlier on weekends']
+      },
+      autumn: {
+        title: 'Sharper light + calmer pace',
+        summary: 'Early autumn can feel cleaner and less rushed, with good coastal contrast and a slightly more relaxed visitor flow than high summer.',
+        tags: ['Good shoulder season', 'Comfortable for a half-day combo', 'Still weather-dependent']
+      },
+      winter: {
+        title: 'Usually not the season',
+        summary: 'Winter is normally the off period because monsoon conditions and rougher seas make public island access unreliable or unavailable.',
+        tags: ['Treat as off-season', 'Good mainland-view season only', 'Check for closures first']
+      }
+    };
+
+    const modeData = {
+      landing: { time: 38, effort: 24, photo: 72, timeLabel: '2.0–2.5h', effortLabel: 'Easy', photoLabel: 'High' },
+      hike: { time: 66, effort: 61, photo: 86, timeLabel: '3.0–3.5h', effortLabel: 'Moderate', photoLabel: 'Very high' },
+      full: { time: 84, effort: 74, photo: 91, timeLabel: '4.0–4.5h', effortLabel: 'Moderate+', photoLabel: 'Best overall' }
+    };
+
+    function renderPlanner(){
+      const season = seasonData[state.season];
+      const mode = modeData[state.mode];
+
+      document.getElementById('plannerTitle').textContent = season.title;
+      document.getElementById('plannerSummary').textContent = season.summary;
+
+      const tags = document.getElementById('plannerTags');
+      tags.innerHTML = '';
+      season.tags.forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'tag';
+        span.textContent = tag;
+        tags.appendChild(span);
+      });
+
+      document.getElementById('timeBar').style.width = mode.time + '%';
+      document.getElementById('effortBar').style.width = mode.effort + '%';
+      document.getElementById('photoBar').style.width = mode.photo + '%';
+      document.getElementById('timeLabel').textContent = mode.timeLabel;
+      document.getElementById('effortLabel').textContent = mode.effortLabel;
+      document.getElementById('photoLabel').textContent = mode.photoLabel;
+    }
+
+    document.querySelectorAll('#seasonControls button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.season = btn.dataset.season;
+        document.querySelectorAll('#seasonControls button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+        renderPlanner();
+      });
+    });
+
+    document.querySelectorAll('#modeControls button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.mode = btn.dataset.mode;
+        document.querySelectorAll('#modeControls button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+        renderPlanner();
+      });
+    });
+
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCaption = document.getElementById('modalCaption');
+    const closeModal = () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    };
+
+    document.querySelectorAll('.shot').forEach(shot => {
+      shot.addEventListener('click', () => {
+        const img = shot.querySelector('img');
+        modalImg.src = img.currentSrc || img.src;
+        modalImg.alt = img.alt;
+        modalTitle.textContent = shot.dataset.title || 'Image';
+        modalCaption.textContent = shot.dataset.caption || '';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    renderPlanner();
+  </script>
+</body>
+</html>
